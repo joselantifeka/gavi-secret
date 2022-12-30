@@ -21,7 +21,8 @@ import Raffle from "../components/common/Raffle";
 import MyGift from "../components/common/MyGift";
 import { useStores } from "../models/root-store/root-store-context";
 import { observer } from "mobx-react-lite";
-
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Keyboard } from "react-native";
 const HomeSreen = observer((props: any) => {
   const { navigation } = props;
   const { userStorage } = useStores();
@@ -32,9 +33,15 @@ const HomeSreen = observer((props: any) => {
 
   return (
     <SafeAreaView>
-      {user.alreadyRaffle ? <Raffle /> : <NoRaffle />}
-      <Divider />
-      <MyGift />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView
+          behavior={"height"}
+        >
+          {user.alreadyRaffle ? <Raffle /> : <NoRaffle />}
+          <Divider />
+          <MyGift />
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 });
